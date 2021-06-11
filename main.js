@@ -1,6 +1,7 @@
 
 
 //DATE
+function myCalendar () {
 let d = new Date();
 let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 let day = days[d.getDay()];
@@ -25,6 +26,9 @@ let year = d.getFullYear();
 
 let calendar = document.getElementById("calendar")
 calendar.textContent = `${day}, ${month}  ${date}${suffix(date)}  ${year}`;
+}
+setInterval(myCalendar, 1000)
+myCalendar();
 
 
 //TIME
@@ -54,4 +58,5 @@ clock.textContent = `${zero()}${hour(hr)}:${minute(min)}:${second(sec)}  ${amPm(
 }
 
 setInterval(myClock, 1000)
+myClock();
 

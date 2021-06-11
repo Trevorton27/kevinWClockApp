@@ -1,0 +1,18 @@
+body{
+    background-color: lightgreen;
+    text-align: center;
+    color: cornflowerblue;
+    font-family: 'Architects Daughter', cursive, "Arial";
+    margin-top: 66px;
+}
+.title{
+    font-size: 30px;
+}
+
+#clock{
+    font-size:100px;
+}
+
+#calendar{
+    font-size: 66px;
+}
