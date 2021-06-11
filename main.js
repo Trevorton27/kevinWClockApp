@@ -20,6 +20,16 @@ let suffix = date => {
 };
 let year = d.getFullYear();
 
-document.getElementById("date").innerHTML = `${day}, ${month}  ${date}${suffix(date)}  ${year}`;
+let calendar = document.getElementById("calendar")
+calendar.textContent = `${day}, ${month}  ${date}${suffix(date)}  ${year}`;
+
+
+let hour = d.getHours();
+let minute = d.getMinutes();
+let second = d.getSeconds();
+
+let clock = document.getElementById("clock")
+clock.textContent = `${hour}:${minute}:${second}`;
+
 //day month date year  (eg. Monday, August 12th 2021)
 // HOURS:MINUTES:SECONDS (eg. 03:30:09)
