@@ -1,62 +1,79 @@
-
-
-//DATE
-function myCalendar () {
-let d = new Date();
-let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-let day = days[d.getDay()];
-let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-let month = months[d.getMonth()];
-let date = d.getDate();
-let suffix = date => {
-    if (date == 1 || date == 21 || date == 31) {
-        return "st";
-    }
-    else if (date == 2 || date == 22) {
-        return "nd";
-    }
-    else if (date == 3 || date == 23) {
-        return "rd";
-    }
-    else {
-        return "th";
-    }
-};
-let year = d.getFullYear();
-
-let calendar = document.getElementById("calendar")
-calendar.textContent = `${day}, ${month}  ${date}${suffix(date)}  ${year}`;
-}
-setInterval(myCalendar, 1000)
-myCalendar();
-
-
 //TIME
-function myClock() {
-let t = new Date();
-let hr = t.getHours();
-let hour = hr => {
-    if (hr > 12){
-        return hr - 12
-        } else if( hr === 0){
-            return 12
-        } else {
-            return hr
-        }
-       }
-let min = t.getMinutes();
-let minute = min => {return min < 10 ? '0' + min : min}
-let sec = t.getSeconds();
-let second = sec => {return sec < 10 ? '0' + sec : sec}
-let zero = () =>{
-    return hour(hr) < 10 ? '0' : '';
-}
-let amPm = hr => hr > 11 ? 'PM' : 'AM'
-    
-let clock = document.getElementById("clock")
-clock.textContent = `${zero()}${hour(hr)}:${minute(min)}:${second(sec)}  ${amPm(hr)}`; 
+function renderClock() {
+  const theTime = new Date();
+  const second = addLeadingZero(theTime.getSeconds());
+  const minute = addLeadingZero(theTime.getMinutes());
+  const hour = theTime.getHours();
+  const isAm = hour < 12 || hour === 0;
+  let amPm = isAm ? 'AM' : 'PM';
+
+  const clock = document.getElementById('clock');
+  clock.textContent = `${formatHour(hour)}:${minute}:${second} ${amPm}`;
 }
 
-setInterval(myClock, 1000)
-myClock();
+function addLeadingZero(number) {
+  return number < 10 ? '0' + number : number;
+}
 
+function formatHour(hour) {
+  hour = hour >= 13 ? hour - 12 : hour;
+
+  hour = hour === 0 ? hour + 12 : hour;
+  return hour;
+}
+function renderDate() {
+  const theDate = new Date();
+  const day = days[theDate.getDay()];
+  const month = months[theDate.getMonth()];
+  const date = theDate.getDate();
+  const year = theDate.getFullYear();
+
+  const calendar = document.getElementById('calendar');
+  calendar.textContent = `${day}, ${month} ${formatDateSuffix(date)} ${year}`;
+}
+
+function formatDateSuffix(date) {
+  if (date < 10 || date > 20) {
+    switch (date % 10) {
+      case 1:
+        return `${date}st`;
+      case 2:
+        return `${date}nd`;
+      case 3:
+        return `${date}rd`;
+    }
+  }
+  return `${date}th`;
+}
+
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
+
+setInterval(() => {
+  renderClock();
+  renderDate();
+}, 1000);
+renderClock();
+renderDate();
